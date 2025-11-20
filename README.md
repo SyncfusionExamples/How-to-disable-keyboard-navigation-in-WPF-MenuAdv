@@ -1,9 +1,44 @@
-# How-to-disable-keyboard-navigation-in-WPF-MenuAdv
-This repository provides a detailed example of how to disable keyboard navigation in the **WPF [MenuAdv](https://help.syncfusion.com/wpf/menu/getting-started)** control, which is part of the Syncfusion WPF suite. By default, MenuAdv allows users to navigate through menu items using keyboard keys such as **Arrow keys, Tab, and Enter.** However, in certain scenarios, you may want to restrict this behavior to ensure that navigation occurs only through mouse interaction or custom logic.
+# How to Disable Keyboard Navigation in WPF MenuAdv
+This example demonstrates how to disable keyboard navigation in the WPF [MenuAdv](https://help.syncfusion.com/wpf/menu/getting-started) control, part of the Syncfusion WPF suite. By default, MenuAdv allows navigation through menu items using keys such as **Arrow**, **Tab**, and **Enter**. In some scenarios, you may want to restrict this behavior so that navigation occurs only through mouse interaction or custom logic.
 
-Disabling keyboard navigation can be useful in applications where keyboard shortcuts are reserved for other operations or when you want to maintain a specific user experience. This sample demonstrates how to override the default behavior by handling key events and preventing focus changes between menu items.
+## Why Disable Keyboard Navigation?
+Disabling keyboard navigation can be useful when:
+- Keyboard shortcuts are reserved for other operations.
+- You want to maintain a specific user experience without keyboard-based menu navigation.
 
-For complete implementation details and code snippets, refer to the official Syncfusion KB article:
-[How-to-disable-keyboard-navigation-in-WPF-MenuAdv](https://www.syncfusion.com/kb/11985/how-to-disable-keyboard-navigation-in-wpf-menuadv)
+## Implementation Overview
+You can disable keyboard navigation in MenuAdv by handling the PreviewKeyDown event and marking specific keys as handled.
 
-This guide walks you through customizing the control behavior using event handlers and properties.
+## Code Example
+**XAML**
+```XAML
+<syncfusion:MenuAdv Height="30" Width="150" PreviewKeyDown="MenuAdv_PreviewKeyDown">
+    <syncfusion:MenuItemAdv Header="File">
+        <syncfusion:MenuItemAdv Header="New" />
+        <syncfusion:MenuItemAdv Header="Open" />
+    </syncfusion:MenuItemAdv>
+    <syncfusion:MenuItemAdv Header="View">
+        <syncfusion:MenuItemAdv Header="Zoom In" />
+        <syncfusion:MenuItemAdv Header="Zoom Out" />
+        <syncfusion:MenuItemAdv Header="Normal View" />
+    </syncfusion:MenuItemAdv>
+</syncfusion:MenuAdv>
+```
+**C#**
+```C#
+private void MenuAdv_PreviewKeyDown(object sender, KeyEventArgs e)
+{
+    switch (e.Key)
+    {
+        case Key.Left:
+        case Key.Right:
+            e.Handled = true; // Disable left/right navigation
+            break;
+        default:
+            break;
+    }
+}
+```
+
+## Reference
+For complete implementation details, refer to the official Syncfusion Knowledge Base: https://www.syncfusion.com/kb/11985/how-to-disable-keyboard-navigation-in-wpf-menuadv
